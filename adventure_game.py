@@ -48,9 +48,11 @@ def yellow_flower(items):
                 "tight the flower.'")
     print_pause("You then squeeze the flower thinking of"
                 " what you want the most.")
-    print_pause(f"Suddenly, {random.choice(most_wanted)}"
+    wanted_thing = random.choice(most_wanted)
+    print_pause(f"Suddenly, {wanted_thing}"
                 f" appears in front of you! UHU!")
     items.append("yellow flower")
+    items.append(wanted_thing)
     gate(items)
 
 
@@ -66,11 +68,12 @@ def blue_flower(items):
 def key(items):
     message = input("What would you like to do?\n"
                     "1. Keep the key\n"
-                    "2. Choose again\n")
-    if '1' in message:
+                    "2. Change your choice."
+                    "\n")
+    if message == '1':
         items.append('key')
         gate(items)
-    elif '2' in message:
+    elif message == '2':
         flower_choice(items)
     else:
         print_pause("Sorry, I don't understand you!")
@@ -78,15 +81,32 @@ def key(items):
 
 
 def run_away(items):
-    enemies = ['birds, foxes, and rabbits', 'trolls',
-               'gnomes', 'angry fairies']
+    enemies = ['birds, foxes, and rabbits', 'trolls', 'angry fairies']
+    enemy = random.choice(enemies)
     print_pause("You start to run, and you can see "
                 "and hear that someone is following you.")
-    print_pause(f"You look back and {random.choice(enemies)} "
+    print_pause(f"You look back and {enemy} "
                 f"are all running after you!")
-    print_pause("No matter how fast you run, they seems to "
-                "be by the same distance always.")
-    gate(items)
+    if 'a big ice-cream' in items:
+        print_pause("You remember of your ice-cream!")
+        print_pause("You throw some ice-cream on them! "
+                    "Now, you have more time to think!")
+        items.remove('a big ice-cream')
+        gate(items)
+    elif 'a pile of money' in items:
+        print_pause("You cannot believe in what your eyes are seeing!")
+        print_pause("You try to throw some money in the air to distract them!")
+        print_pause("It is working! But it will not work for long.")
+        items.remove('a pile of money')
+        gate(items)
+    elif 'a 100% working, no errors, program' in items:
+        print_pause("Oh no! First the wizard now you are being chased!")
+        print_pause("You just want to go back home!")
+        print_pause("Nothing that you have will help you now.")
+        print_pause(f"You got caught by {enemy}! Better luck next time!")
+        play_again()
+    else:
+        gate(items)
 
 
 def gate(items):
@@ -116,12 +136,12 @@ def exchange_flower(items):
     print_pause("Unless you give up of the yellow flower "
                 "you will stay in the forest forever!")
     message = input("What now?! Will you give the yellow flower "
-                    "back to the man? Please say 'yes' or 'no'?\n")
-    if 'no' in message:
+                    "back to the man? Please say 'yes' or 'no'?\n").lower()
+    if message == 'no':
         print_pause("You decided to keep what you wanted the most!")
         print_pause("Now you will be trapped in the woods forever!")
         play_again()
-    elif 'yes' in message:
+    elif message == 'yes':
         print_pause("'Very good, I'm happy to take my yellow flower back.'")
         print_pause("The old man then open his hands. "
                     "And you see the two flowers again.")
@@ -151,14 +171,15 @@ def play_game():
 
 def play_again():
     message = input("Would you like to play again? "
-                    "Please say 'yes' or 'no'?\n")
-    if 'no' in message:
+                    "Please say 'yes' or 'no'?\n").lower()
+    if message == 'no':
         print("See you then!")
-    elif 'yes' in message:
+    elif message == 'yes':
         print("Let's play!")
         play_game()
     else:
         play_again()
 
 
-play_game()
+if __name__ == "__main__":
+    play_game()
