@@ -4,7 +4,7 @@ import random
 
 def print_pause(message):
     print(message)
-    time.sleep(2)
+    time.sleep(1)
 
 
 def intro():
